@@ -24,11 +24,11 @@ public class Equipement implements Serializable {
     private Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "LIEUFK", insertable = false, updatable = false)
+    @JoinColumn(name = "LIEUFK")
     private Lieu lieu;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "SALLEFK", insertable = false, updatable = false)
+    @JoinColumn(name = "SALLEFK")
     private Salle salle;
 
     @Enumerated(EnumType.STRING)

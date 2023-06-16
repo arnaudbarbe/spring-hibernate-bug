@@ -1,16 +1,22 @@
 package com.bezkoder.spring.jpa.h2.model;
 
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Lieu {
+public class Lieu implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,17 +31,20 @@ public class Lieu {
     @Column(name = "published")
     private boolean published;
 
-    @OneToMany(mappedBy = "lieu")
+    @OneToMany(mappedBy = "lieu", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Equipement> equipements;
 
-    @OneToMany(mappedBy = "lieu")
+    @OneToMany(mappedBy = "lieu", cascade = CascadeType.ALL)
     private Set<Salle> salles;
 
     public Lieu() {
-
+        super();
+        this.equipements = new HashSet<>();
+        this.salles = new HashSet<>();
     }
 
     public Lieu(String title, String description, boolean published) {
+        this();
         this.title = title;
         this.description = description;
         this.published = published;
@@ -89,5 +98,4 @@ public class Lieu {
     public String toString() {
         return "Lieu [id=" + id + ", title=" + title + ", desc=" + description + ", published=" + published + "]";
     }
-
 }

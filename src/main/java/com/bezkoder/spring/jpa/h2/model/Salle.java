@@ -19,7 +19,7 @@ public class Salle extends DescriptionLieu {
 
     private static final long serialVersionUID = 1L;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     @JoinColumn(name = "LIEUFK", insertable = false, updatable = false)
     private Lieu lieu;
 
