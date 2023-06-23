@@ -1,5 +1,7 @@
 package com.bezkoder.spring.jpa.h2;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.Test;
@@ -24,24 +26,30 @@ class SpringBootJpaH2ApplicationTests {
 
         try {
             Lieu lieu = new Lieu("title", "desc", false);
-            Equipement equipement = new Equipement();
+
             Salle salle = new Salle();
             salle.setType(ETypeSalle.toto);
 
-            salle = tutorialService.saveSalle(salle);
+            Equipement equipement1 = new Equipement();
+            lieu.getEquipements().add(equipement1);
+            equipement1.setLieu(lieu);
+            salle.getEquipements().add(equipement1);
+            equipement1.setSalle(salle);
 
-            salle.getEquipements().add(equipement);
-            equipement.setLieu(lieu);
-            equipement.setSalle(salle);
+            Equipement equipement2 = new Equipement();
+            lieu.getEquipements().add(equipement2);
+            equipement2.setLieu(lieu);
 
-            lieu.getEquipements().add(equipement);
+            salle.setLieu(lieu);
             lieu.getSalles().add(salle);
 
+            salle = tutorialService.saveSalle(salle);
             lieu = tutorialService.saveLieu(lieu);
 
             Lieu existingLieu = tutorialService.getLieuById(lieu.getId());
 
-            System.out.println(existingLieu.getDescription());
+            assertEquals(2, existingLieu.getEquipements().size());
+
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
