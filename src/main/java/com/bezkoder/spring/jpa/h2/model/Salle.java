@@ -75,4 +75,9 @@ public class Salle implements Serializable {
     public void setType(ETypeSalle type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "Salle [id=" + id + ", type=" + type + "]";
+    }
 }

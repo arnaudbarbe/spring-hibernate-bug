@@ -23,11 +23,11 @@ public class Equipement implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     @JoinColumn(name = "LIEUFK")
     private Lieu lieu;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     @JoinColumn(name = "SALLEFK")
     private Salle salle;
 
@@ -68,5 +68,10 @@ public class Equipement implements Serializable {
 
     public void setType(ETypeEquipement type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "Equipement [id=" + id + ", type=" + type + "]";
     }
 }
