@@ -47,7 +47,7 @@ class SpringBootJpaH2ApplicationTests {
             lieu = tutorialService.saveLieu(lieu);
 
             Lieu existingLieu = tutorialService.getLieuById(lieu.getId());
-
+//should have 2 equipements into lieu but only 1 is returned, look into console and see generated SQL to retrieve Equipement from a Lieu
             assertEquals(2, existingLieu.getEquipements().size());
 
         } catch (Exception e) {
